@@ -27,4 +27,24 @@ public interface IEnvironment {
 	 */
 	public void update();
 
+	/**
+	 * Ajoute une Lane 
+	 */
+	public void ajoutLane();
+	
+	/**
+	 * Décale d'une ligne vers le bas toutes les lanes de la liste
+	 */
+	public void decalageLane();
+	
+	/**
+	 * Décale d'une ligne vers le haut toutes les lanes de la liste
+	 */
+	public void decalageLaneInv();
+	
+	/**
+	 * 
+	 * @return le score qui est la taille de la liste de lane
+	 */
+	public int score();
 }

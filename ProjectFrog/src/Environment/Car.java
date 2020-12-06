@@ -66,6 +66,14 @@ public class Car {
 		return false;
 	}
 	
+	public void decalUneVoit() {
+		this.leftPosition.ord = this.leftPosition.ord - 1;
+	}
+	
+	public void decalUneVoitInv() {
+		this.leftPosition.ord = this.leftPosition.ord + 1;
+	}
+	
 	
 	/* Fourni : addToGraphics() permettant d'ajouter un element graphique correspondant a la voiture*/
 	public void addToGraphics() {

@@ -2,20 +2,20 @@ package Environment;
 
 import java.util.ArrayList;
 
-import util.Case;
 import gameCommons.Game;
 import gameCommons.IEnvironment;
+import util.Case;
+import util.Direction;
 
-
-public class environment implements IEnvironment {
+public class EnvInf implements IEnvironment{
 	private ArrayList<Lane> ligne;
 	private Game game;
 	
-	public environment() {
+	public EnvInf() {
 		this.ligne = new ArrayList<Lane>();
 	}
     
-	public environment(Game g) {
+	public EnvInf(Game g) {
 		this.game = g;
 		this.ligne = new ArrayList<Lane>();
 		boolean bool;
@@ -51,32 +51,39 @@ public class environment implements IEnvironment {
 
 
 	public boolean isWinningPosition(util.Case c) {
-		   // Pas utile ici mais je garde pour un exemple : Case casa = new Case(this.game.getFrog().getPosition().absc,this.game.getFrog().getPosition().ord);
            int ordLane = this.ligne.get(ligne.size()-1).getOrdLane();
-         /**  for(int i = 0; i < this.ligne.size(); i++) {
-        	   if(ordLane > this.ligne.get(i).getOrdLane()) {
-        		   ordLane = this.ligne.get(i).getOrdLane();    		   
-        	   }
-      	   } **/
     	   if(c.ord >= ordLane + 1) {
     		   return true;
            }
     	   return false;
 	}
 
+	public void ajoutLane() {
+		boolean sens;
+		if(((ligne.size() + 1) % 2) == 0) {
+			sens = true;
+		}
+		else {
+			sens = false;
+		}
+	    ligne.add(new Lane(this.game,ligne.size() + 1,0,sens,game.defaultDensity));
+	}
+	
+	public void decalageLane() {
+		for(Lane lg : ligne) {
+			lg.decalDe1ord();
+			lg.decalageCar();
+		}
+	}
+	
+	public void decalageLaneInv() {
+		for(Lane lg : ligne) {
+			lg.decalDe1ordInv();
+			lg.decalageCarInv();
+		}
+	}
 
-	public void update() {
-/**		boolean bool;
-		for(int i = 0; i < this.game.height; i++) {
-			if(i%2 != 0) {
-				bool = false;
-			}
-			else {
-				bool = true;
-			}
-		      Lane lan = new Lane(this.game,i,0,bool,game.defaultDensity);
-		      this.ligne.add(lan);
-		} **/
+	public void update() {	
 		for(Lane lg : this.ligne) {
 			lg.update();
 		}
@@ -87,31 +94,8 @@ public class environment implements IEnvironment {
     public Game getGame() {
     	return this.game;
     }
-
-	@Override
-	public void ajoutLane() {
-	    ligne.add(new Lane(this.game,ligne.size(),0,true,game.defaultDensity));
-		
-	}
-
-	@Override
-	public void decalageLane() {
-		for(Lane lg : ligne) {
-			lg.decalDe1ord();
-		}
-		
-	}
-
-	@Override
-	public void decalageLaneInv() {
-		for(Lane lg : ligne) {
-			lg.decalDe1ordInv();
-		}
-		
-	}
-
-	@Override
-	public int score() {
-    	return ligne.size();
-	}
+    
+    public int score() {
+    	return ligne.size() - game.height + 2;
+    }
 }

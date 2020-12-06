@@ -87,7 +87,7 @@ public class Game {
 	 */
 	public boolean testLose() {
 		if(!this.environment.isSafe(this.frog.getPosition())) {
-			this.graphic.endGameScreen("Vous avez perdu.");
+			this.graphic.endGameScreen("Vous avez perdu." + "\n"  + " score: " + environment.score());
 			return true;
 		}
 		return false;
@@ -111,12 +111,28 @@ public class Game {
 	 * Actualise l'environnement, affiche la grenouille et verifie la fin de
 	 * partie.
 	 */
-	public void update() {
+/**	public void update() {
 		graphic.clear();
 		environment.update();
 		this.graphic.add(new Element(frog.getPosition(), Color.GREEN));
 		testLose();
 		testWin();
+	} **/
+	
+	public void update() {
+		graphic.clear();
+		environment.update();
+		this.graphic.add(new Element(frog.getPosition(), Color.GREEN));
+		testLose();
+	}
+	
+	
+	public int heightInf() {
+		return this.height + 1;
+	}
+	
+	public IEnvironment getEnv() {
+		return environment;
 	}
 
 }

@@ -184,5 +184,25 @@ public class Lane {
 		} else
 			return new Case(game.width, ord);
 	}
+	
+	public void decalDe1ord() {
+		ord = ord - 1;
+	}
+	
+	public void decalDe1ordInv() {
+		ord = ord + 1;
+	}
+	
+	public void decalageCar() {
+		for(Car voiture : this.cars) {
+			voiture.decalUneVoit();
+		}
+	}
+	
+	public void decalageCarInv() {
+		for(Car voiture : this.cars) {
+			voiture.decalUneVoitInv();
+		}
+	}
 
 }
