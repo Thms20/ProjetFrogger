@@ -15,6 +15,7 @@ public class Game {
 	public final int height;
 	public final int minSpeedInTimerLoops;
 	public final double defaultDensity;
+	public int chrono;
 
 	// Lien aux objets utilisés
 	private IEnvironment environment;
@@ -41,6 +42,7 @@ public class Game {
 		this.height = height;
 		this.minSpeedInTimerLoops = minSpeedInTimerLoop;
 		this.defaultDensity = defaultDensity;
+		this.chrono = 0;
 	}
 
 	/**
@@ -87,9 +89,11 @@ public class Game {
 	 */
 	public boolean testLose() {
 		if(!this.environment.isSafe(this.frog.getPosition())) {
+		//	this.graphic.endGameScreen("Vous avez perdu." + "\n"  + " score: " + environment.score() + " T:" + chrono/10 + "s");
 			this.graphic.endGameScreen("Vous avez perdu." + "\n"  + " score: " + environment.score());
 			return true;
 		}
+	//	chrono = chrono + 1;
 		return false;
 	}
 
@@ -101,9 +105,10 @@ public class Game {
 	 */
 	public boolean testWin() {
 		if(this.environment.isWinningPosition(this.frog.getPosition())) {
-			this.graphic.endGameScreen("Vous avez gagné !");
+			this.graphic.endGameScreen("Vous avez gagné !" +  " Gagner en:" + chrono/10 + "s");
 			return true;
 		}
+		chrono = chrono + 1;
 		return false;
 	}
 
@@ -123,6 +128,7 @@ public class Game {
 		graphic.clear();
 		environment.update();
 		this.graphic.add(new Element(frog.getPosition(), Color.GREEN));
+	//	testWin(); -> pour remettre le mode pas infinie
 		testLose();
 	}
 	
